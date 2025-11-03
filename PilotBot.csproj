@@ -9,6 +9,13 @@
 
   <ItemGroup>
     <PackageReference Include="DSharpPlus" Version="4.5.1" />
+    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
