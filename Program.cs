@@ -18,7 +18,7 @@ namespace DiscordBot
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Fatal error: {ex.Message}");
+                Console.WriteLine($"Fatal error: {ex.Message}");
             }
         }
     }

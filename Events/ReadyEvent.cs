@@ -9,8 +9,8 @@ namespace DiscordBot.Events
     {
         public static Task OnReady(DiscordClient sender, ReadyEventArgs e)
         {
-            Console.WriteLine($"✅ {sender.CurrentUser.Username} is online!");
-            Console.WriteLine($"📊 Connected to {sender.Guilds.Count} servers");
+            Console.WriteLine($"{sender.CurrentUser.Username} is online!");
+            Console.WriteLine($"Connected to {sender.Guilds.Count} servers");
             return Task.CompletedTask;
         }
     }

@@ -9,7 +9,7 @@ namespace DiscordBot.Commands
         [Description("Check if the bot is responsive")]
         public async Task Ping(CommandContext ctx)
         {
-            await ctx.RespondAsync($"?? Pong! Latency: {ctx.Client.Ping}ms");
+            await ctx.RespondAsync($"Pong! Latency: {ctx.Client.Ping}ms");
         }
 
         [Command("hello")]
@@ -25,16 +25,26 @@ namespace DiscordBot.Commands
         {
             var embed = new DSharpPlus.Entities.DiscordEmbedBuilder
             {
-                Title = "?? Bot Information",
+                Title = "Bot Information",
                 Description = "A Discord bot built with DSharpPlus",
-                Color = DSharpPlus.Entities.DiscordColor.Blue
+                Color = DSharpPlus.Entities.DiscordColor.Red
             };
 
             embed.AddField("Bot Name", ctx.Client.CurrentUser.Username, true);
             embed.AddField("Servers", ctx.Client.Guilds.Count.ToString(), true);
             embed.AddField("Latency", $"{ctx.Client.Ping}ms", true);
+            embed.AddField("User", $"{ctx.User.Mention}",true);
 
             await ctx.RespondAsync(embed: embed.Build());
         }
+
+        [Command("yash")]
+        [Description("Just for Fun")]
+
+        public async Task Yash(CommandContext ctx)
+        {
+            await ctx.RespondAsync("Hello From Yash");
+        }
+
     }
 }
