@@ -1,10 +1,13 @@
-using DSharpPlus.CommandsNext;
+﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
+using System.Net.Http;
 
 namespace DiscordBot.Commands
 {
     public class BasicCommands : BaseCommandModule
     {
+        private static readonly HttpClient httpClient = new HttpClient();
+
         [Command("ping")]
         [Description("Check if the bot is responsive")]
         public async Task Ping(CommandContext ctx)
@@ -16,7 +19,7 @@ namespace DiscordBot.Commands
         [Description("Say hello to the bot")]
         public async Task Hello(CommandContext ctx)
         {
-            await ctx.RespondAsync($"?? Hello {ctx.User.Mention}!");
+            await ctx.RespondAsync($"👋 Hello {ctx.User.Mention}!");
         }
 
         [Command("info")]
@@ -29,22 +32,53 @@ namespace DiscordBot.Commands
                 Description = "A Discord bot built with DSharpPlus",
                 Color = DSharpPlus.Entities.DiscordColor.Red
             };
-
             embed.AddField("Bot Name", ctx.Client.CurrentUser.Username, true);
             embed.AddField("Servers", ctx.Client.Guilds.Count.ToString(), true);
             embed.AddField("Latency", $"{ctx.Client.Ping}ms", true);
-            embed.AddField("User", $"{ctx.User.Mention}",true);
-
+            embed.AddField("User", $"{ctx.User.Mention}", true);
             await ctx.RespondAsync(embed: embed.Build());
         }
 
-        [Command("yash")]
-        [Description("Just for Fun")]
-
-        public async Task Yash(CommandContext ctx)
+        [Command("ascii")]
+        [Description("Convert text to ASCII art")]
+        public async Task Ascii(CommandContext ctx, [RemainingText] string text)
         {
-            await ctx.RespondAsync("Hello From Yash");
-        }
+            // Check if text was provided
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                await ctx.RespondAsync("❌ Please provide text to convert! Usage: `!ascii your text here`");
+                return;
+            }
 
+            try
+            {
+                // Delete the user's message
+                //await ctx.Message.DeleteAsync();
+
+
+                // URL encode the text and make the API request
+                string encodedText = Uri.EscapeDataString(text);
+                string apiUrl = $"https://asciified.thelicato.io/api/v2/ascii?text={encodedText}&font=Pagga";
+
+                HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+                response.EnsureSuccessStatusCode();
+
+                string asciiArt = await response.Content.ReadAsStringAsync();
+
+                // Delete the thinking message
+                //await thinkingMsg.DeleteAsync();
+
+                // Send the ASCII art in a code block for proper formatting
+                await ctx.RespondAsync($"```\n{asciiArt}\n```");
+            }
+            catch (HttpRequestException ex)
+            {
+                await ctx.RespondAsync($"❌ Failed to fetch ASCII art: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                await ctx.RespondAsync($"❌ An error occurred: {ex.Message}");
+            }
+        }
     }
 }
