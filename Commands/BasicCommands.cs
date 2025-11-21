@@ -56,7 +56,7 @@ namespace DiscordBot.Commands
             try
             {
                 // Delete the user's message
-                await ctx.Message.DeleteAsync();
+                //await ctx.Message.DeleteAsync();
 
 
                 // URL encode the text and make the API request
@@ -85,7 +85,6 @@ namespace DiscordBot.Commands
         }
 
         [Command("kickall")]
-        [Description("Kick everyone from your current voice channel")]
         [RequirePermissions(Permissions.MoveMembers)]
         public async Task KickAll(CommandContext ctx)
         {
@@ -95,7 +94,7 @@ namespace DiscordBot.Commands
                 await ctx.RespondAsync("❌ You must be in a voice channel to use this command!");
                 return;
             }
-            
+
             var voiceChannel = ctx.Member.VoiceState.Channel;
             
             // Check if bot has permission
@@ -133,6 +132,7 @@ namespace DiscordBot.Commands
                     Console.WriteLine($"Failed to kick {user.Username}: {ex.Message}");
                 }
             }
+            await ctx.Message.DeleteAsync(); // ← Add this line!
         }
 
     }
