@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 # Copy csproj and restore dependencies
-COPY *.csproj ./
+COPY *.csproj ./ 
 RUN dotnet restore
 
 # Copy everything else and build
@@ -14,6 +14,10 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/runtime:9.0
 WORKDIR /app
 COPY --from=build /app/out .
+
+# Expose port for HTTP health check
+EXPOSE 10000
+ENV PORT=10000
 
 # Run the bot
 ENTRYPOINT ["dotnet", "PilotBot.dll"]
