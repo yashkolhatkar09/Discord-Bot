@@ -1,45 +1,62 @@
-﻿using DSharpPlus;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DSharpPlus;
+using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 
 namespace DiscordBot.Events
 {
     public static class MessageEvent
     {
-
         private static readonly HashSet<string> BadWords = new()
         {
-            "Job",
-            "Internship"
+            "job",
+            "internship"
         };
+
         public static async Task OnMessageCreated(DiscordClient sender, MessageCreateEventArgs e)
         {
             if (e.Author.IsBot) return;
 
-            // Log mentions
-            if (e.MentionedUsers.Any(u => u.Id == sender.CurrentUser.Id))
-            {
-                Console.WriteLine($"Mentioned by {e.Author.Username} in #{e.Channel.Name}");
-            }
-
             if (ContainsBadWord(e.Message.Content))
             {
-                try
-                {
-                    await e.Message.DeleteAsync("Cannot Use Such Words Here");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                await TryDelete(e.Message);
             }
+        }
 
+        public static async Task OnMessageUpdated(DiscordClient sender, MessageUpdateEventArgs e)
+        {
+            // Ignore bot edits
+            if (e.Author.IsBot) return;
+
+            // e.Message.Content may be null on edit events ? use e.MessageBefore if needed
+            string? afterContent = e.Message?.Content;
+            if (afterContent == null) return;
+
+            if (ContainsBadWord(afterContent))
+            {
+                await TryDelete(e.Message);
+            }
+        }
+
+        private static async Task TryDelete(DiscordMessage msg)
+        {
+            try
+            {
+                await msg.DeleteAsync("Updated/Edited message contains banned words.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Delete failed: " + ex.Message);
+            }
         }
 
         private static bool ContainsBadWord(string content)
         {
             if (string.IsNullOrWhiteSpace(content)) return false;
 
-            // First replace number/symbol substitutions with letters
             var cleanedContent = content.ToLower()
                 .Replace("0", "o")
                 .Replace("1", "i")
@@ -54,11 +71,9 @@ namespace DiscordBot.Events
                 .Replace("|", "i")
                 .Replace("9", "g");
 
-            // Then remove ALL special characters and spaces
             cleanedContent = new string(cleanedContent.Where(c => char.IsLetterOrDigit(c)).ToArray());
 
-            return BadWords.Any(badWord => cleanedContent.Contains(badWord.ToLower()));
+            return BadWords.Any(bad => cleanedContent.Contains(bad));
         }
-
     }
 }

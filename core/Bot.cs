@@ -49,14 +49,14 @@ namespace DiscordBot.Core
         private void RegisterEvents()
         {
             Client.Ready += ReadyEvent.OnReady;
-            //Client.VoiceStateUpdated += VoiceStateEvent.OnVoiceStateUpdated;
             Client.MessageCreated += MessageEvent.OnMessageCreated;
+            Client.MessageUpdated += MessageEvent.OnMessageUpdated;
         }
 
         public async Task StartAsync()
         {
             await Client.ConnectAsync();
-            //Console.WriteLine("🚀 Bot started successfully!");
+            Console.WriteLine("🚀 Bot started successfully!");
         }
     }
 }

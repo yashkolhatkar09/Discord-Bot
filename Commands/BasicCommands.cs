@@ -84,7 +84,7 @@ namespace DiscordBot.Commands
             }
         }
 
-        [Command("kickall")]
+        [Command("killall")]
         [RequirePermissions(Permissions.MoveMembers)]
         public async Task KickAll(CommandContext ctx)
         {
