@@ -1,20 +1,20 @@
-# ?? PilotBot - Discord Bot
+# PilotBot - Discord Bot
 
 A feature-rich Discord bot built with **DSharpPlus** and **.NET 9.0**
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com)
 
-## ? Features
+## Features
 
-- ?? **Ping Command** - Check bot latency
-- ?? **Greetings** - Welcome messages
-- ?? **Bot Info** - Display bot statistics
-- ?? **ASCII Art** - Convert text to ASCII art
-- ??? **Word Moderation** - Auto-delete messages with banned words
-- ?? **Voice Commands** - Kick users from voice channels
-- ?? **Docker Ready** - Containerized for easy deployment
+-   **Ping Command** - Check bot latency
+-   **Greetings** - Welcome messages
+-   **Bot Info** - Display bot statistics
+-   **ASCII Art** - Convert text to ASCII art
+-  ? **Word Moderation** - Auto-delete messages with banned words
+-   **Voice Commands** - Kick users from voice channels
+-   **Docker Ready** - Containerized for easy deployment
 
-## ?? Quick Deploy to Render.com
+## Quick Deploy to Render.com
 
 ### Prerequisites
 - Discord Bot Token from [Discord Developer Portal](https://discord.com/developers/applications)
@@ -27,7 +27,7 @@ A feature-rich Discord bot built with **DSharpPlus** and **.NET 9.0**
 2. **Push to your GitHub**
 3. **Deploy on Render.com** - See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions
 
-## ?? Local Development
+## Local Development
 
 ### Option 1: Run with .NET
 ```bash
@@ -46,22 +46,22 @@ cp .env.example .env
 docker-compose up --build
 ```
 
-## ?? Project Structure
+## Project Structure
 
 ```
 PilotBot/
-??? Commands/           # Bot command modules
-??? config/            # Configuration management
-??? core/              # Core bot functionality
-??? Events/            # Event handlers
-??? Models/            # Data models
-??? Services/          # Service classes
-??? Dockerfile         # Docker configuration
-??? render.yaml        # Render.com deployment config
-??? appsettings.json   # Local config (not committed)
+ ? Commands/           # Bot command modules
+ ? config/            # Configuration management
+ ? core/              # Core bot functionality
+ ? Events/            # Event handlers
+ ? Models/            # Data models
+ ? Services/          # Service classes
+ ? Dockerfile         # Docker configuration
+ ? render.yaml        # Render.com deployment config
+ ? appsettings.json   # Local config (not committed)
 ```
 
-## ?? Configuration
+## Configuration
 
 ### Local Development
 Edit `appsettings.json`:
@@ -77,19 +77,19 @@ Set environment variables:
 - `DISCORD_TOKEN` - Your bot token
 - `PREFIX` - Command prefix (default: `!`)
 
-## ?? Documentation
+## Documentation
 
-- [?? Deployment Guide](DEPLOYMENT.md) - Complete deployment instructions
-- [?? Fixes Summary](FIXES_SUMMARY.md) - Issues fixed and improvements
+- [  Deployment Guide](DEPLOYMENT.md) - Complete deployment instructions
+- [  Fixes Summary](FIXES_SUMMARY.md) - Issues fixed and improvements
 
-## ??? Technologies
+## Technologies
 
 - .NET 9.0
 - DSharpPlus 4.5.1
 - Docker
 - Render.com
 
-## ?? Available Commands
+## Available Commands
 
 | Command | Description |
 |---------|-------------|
@@ -99,13 +99,13 @@ Set environment variables:
 | `!ascii <text>` | Convert text to ASCII art |
 | `!kickall` | Kick everyone from your voice channel |
 
-## ??? Auto-Moderation
+## Auto-Moderation
 
 The bot automatically filters messages containing:
 - Banned words (configurable)
 - Leetspeak variations (j0b, 1nt3rnsh1p, etc.)
 
-## ?? Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -113,11 +113,11 @@ The bot automatically filters messages containing:
 4. Push to the branch
 5. Open a Pull Request
 
-## ?? License
+## License
 
 This project is open source and available under the MIT License.
 
-## ?? Links
+## Links
 
 - [Discord Developer Portal](https://discord.com/developers/applications)
 - [DSharpPlus Documentation](https://dsharpplus.github.io/)
@@ -125,4 +125,4 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Made with ?? using .NET 9.0 and DSharpPlus**
+**Made with   using .NET 9.0 and DSharpPlus**
