@@ -1,0 +1,42 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Build results
+bin/
+obj/
+out/
+
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.suo
+
+# IDE
+.idea/
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Sensitive data (IMPORTANT: Bot token should be in environment variable)
+appsettings.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Documentation
+README.md
+*.md
+FIXES_SUMMARY.md

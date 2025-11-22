@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  pilotbot:
+    build: .
+    container_name: pilotbot-discord
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - PREFIX=!
+    restart: unless-stopped

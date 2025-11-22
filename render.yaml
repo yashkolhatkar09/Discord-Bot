@@ -1,0 +1,11 @@
+services:
+  - type: worker
+    name: pilotbot-discord
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false  # You'll set this manually in Render dashboard
+      - key: PREFIX
+        value: "!"
+    autoDeploy: true
