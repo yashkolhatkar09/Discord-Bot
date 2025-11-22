@@ -31,9 +31,10 @@ namespace DiscordBot
         static void StartHealthCheckServer(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
-            // Get port from environment variable or use default
+
+            // Get port from environment variable or fallback to 8080
             var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+
             builder.WebHost.ConfigureKestrel(options =>
             {
                 options.ListenAnyIP(int.Parse(port));
@@ -41,10 +42,12 @@ namespace DiscordBot
 
             var app = builder.Build();
 
-            app.MapGet("/", () => "Bot is alive!");
+            // ✔ Allow GET and HEAD requests (UptimeRobot uses HEAD)
+            app.MapMethods("/", new[] { "GET", "HEAD" }, () => "Bot is alive!");
 
             Console.WriteLine($"Health check server listening on port {port}");
             app.Run();
         }
+
     }
 }
