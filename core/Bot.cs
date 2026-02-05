@@ -55,8 +55,24 @@ namespace DiscordBot.Core
 
         public async Task StartAsync()
         {
-            await Client.ConnectAsync();
-            Console.WriteLine("🚀 Bot started successfully!");
+            try
+            {
+                Console.WriteLine("🔌 Connecting to Discord Gateway...");
+                await Client.ConnectAsync();
+                Console.WriteLine("🚀 Bot connected to Discord successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Discord connection failed: {ex.GetType().Name}");
+                Console.WriteLine($"   Message: {ex.Message}");
+
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"   Inner: {ex.InnerException.Message}");
+                }
+
+                throw; // Re-throw to trigger retry logic in Program.cs
+            }
         }
     }
 }
